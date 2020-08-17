@@ -6,7 +6,12 @@ import os
 app = Flask(__name__)
 
 
-with open('housing_rfr_model.pickle', 'rb') as f:
+@app.route('/')
+def greetings():
+    return 'Welcome to housing prices predictor. Use API /predict_single and /predict'
+
+
+with open('housing_lr_model.pickle', 'rb') as f:
     model = pickle.load(f)
 
 # http://localhost:5000/predict_single?MedInc=7.33&HouseAge=28&AveRooms=4.55&AveBedrms=2.41&Population=299&AveOccup=2.66&Latitude=37.81&Longitude=-122.28
