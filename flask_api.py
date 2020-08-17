@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 import pandas as pd
 import pickle
+import os
 app = Flask(__name__)
 
 
@@ -37,4 +38,14 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+
+    port = os.environ.get('PORT')
+
+    if port:
+        # 'PORT' variable exists - running on Heroku, listen on external IP and on given by Heroku port
+        app.run(host='0.0.0.0', port=int(port))
+    else:
+        # 'PORT' variable doesn't exist, running not on Heroku, presumabely running locally, run with default
+        #   values for Flask (listening only on localhost on default Flask port)
+        app.run()
